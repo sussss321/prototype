@@ -15,20 +15,33 @@ export function HeroVisual({
 }) {
   if (image) {
     return (
-      <div
-        className={cn("relative", className)}
-        style={{
-          maskImage: "linear-gradient(to bottom, black 70%, transparent 100%)",
-          WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent 100%)",
-        }}
-      >
-        <Image
-          src={image.src}
-          alt={image.alt}
-          fill
-          priority
-          sizes="(min-width: 1024px) 560px, 80vw"
-          className="object-contain object-bottom"
+      <div className={cn("relative", className)}>
+        <div
+          className="absolute inset-0"
+          // Fade the bottom, and the left edge where the photo crops the wing
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, black 78%, transparent 100%), linear-gradient(to right, transparent 0%, black 9%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, black 78%, transparent 100%), linear-gradient(to right, transparent 0%, black 9%)",
+            maskComposite: "intersect",
+            WebkitMaskComposite: "source-in",
+          }}
+        >
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            priority
+            sizes="(min-width: 1024px) 560px, 70vw"
+            // Soft, slightly luminous like the reference photo
+            className="object-contain object-bottom brightness-[1.06] contrast-[0.94] saturate-[1.12]"
+          />
+        </div>
+        {/* White mist the subject dissolves into (bottom center glow in the reference) */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-[-10%] bottom-[-10%] h-[24%] rounded-[50%] bg-sky-glow/70 blur-2xl"
         />
       </div>
     );

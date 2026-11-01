@@ -13,7 +13,7 @@ export const siteConfig = {
   // Hero picture. Set to { src: "/hero.png", alt: "..." } once you have an image in /public.
   // A transparent cut-out (PNG/WebP) of a person or object works best. Until then a glass orb is shown.
   // Generated with Higgsfield (Z Image + background remover), saved in /public.
-  heroImage: { src: "/hero-bird.png", alt: "A small bright-blue songbird" } as null | { src: string; alt: string },
+  heroImage: { src: "/hero-bluebird.png", alt: "A bluebird with vivid blue feathers and a warm peach chest" } as null | { src: string; alt: string },
 
   nav: [
     { label: "Home", href: "/" },

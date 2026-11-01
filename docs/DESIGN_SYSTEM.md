@@ -200,7 +200,7 @@ Links that look like buttons use `buttonVariants()` on `<Link>`. The shadcn `But
 All of these live in `lib/site.ts` unless noted.
 
 - `siteConfig.name` and `wordmark` (currently "Cerulean").
-- `siteConfig.heroImage`: currently `/hero-bird.png`, a Higgsfield-generated placeholder (Z Image + background remover). Replace it with your own transparent cut-out when you have one. Portrait, about 3:4, subject centered, and the bottom fades out automatically.
+- `siteConfig.heroImage`: currently `/hero-bluebird.png`, a Higgsfield-generated placeholder (Z Image + background remover). Replace it with your own transparent cut-out when you have one. Portrait, about 3:4, subject centered, and the bottom fades out automatically.
 - `siteConfig.studentCount`: the real number, or `null` to hide the avatar stack.
 - `siteConfig.supportEmail`.
 - Avatars in `app/(marketing)/page.tsx` (`recentStudents`).

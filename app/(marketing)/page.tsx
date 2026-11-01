@@ -118,14 +118,14 @@ export default function LandingPage() {
         >
           <SiteHeader activeHref="/" />
 
-          <Wordmark text={siteConfig.wordmark} className="top-[96px] md:top-[120px] lg:top-[15%]" />
+          <Wordmark text={siteConfig.wordmark} className="top-[96px] md:top-[120px] lg:top-[24%]" />
 
           <HeroVisual
             image={siteConfig.heroImage}
-            className="absolute top-[150px] left-1/2 size-[300px] -translate-x-1/2 sm:top-[140px] sm:size-[420px] lg:top-auto lg:bottom-[-30px] lg:h-[640px] lg:w-[560px]"
+            className="absolute top-[100px] left-1/2 aspect-[3/4] h-[330px] -translate-x-1/2 sm:h-[460px] lg:top-auto lg:bottom-0 lg:h-[96%]"
           />
 
-          <div className="relative z-10 mt-auto grid gap-10 pt-[340px] sm:pt-[460px] lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:pt-0">
+          <div className="relative z-10 mt-auto grid gap-10 pt-[350px] sm:pt-[480px] lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:pt-0">
             {/* Left: message */}
             <div className="grid max-w-xl gap-6 text-on-sky">
               <h1 id="hero-title" className="type-display text-on-sky-shadow">
@@ -158,7 +158,7 @@ export default function LandingPage() {
               ) : null}
 
               <div className="grid gap-3 sm:grid-cols-3 sm:items-end">
-                <GlassPanel padding="sm" className="grid min-h-40 content-between gap-4 text-on-sky sm:w-52">
+                <GlassPanel padding="sm" className="grid min-h-40 content-between gap-4 bg-sky-bottom/25 text-on-sky sm:w-52 lg:min-h-44 xl:w-60">
                   <div className="flex items-start justify-between">
                     <span className="glass grid size-11 place-items-center rounded-2xl">
                       <LockOpen className="size-5" />
@@ -173,7 +173,7 @@ export default function LandingPage() {
                   </div>
                 </GlassPanel>
 
-                <GlassPanel tone="strong" padding="sm" className="grid min-h-48 content-between gap-4 sm:w-52">
+                <GlassPanel tone="strong" padding="sm" className="grid min-h-48 content-between gap-4 sm:w-52 lg:min-h-52 xl:w-60">
                   <div className="flex items-start justify-between">
                     <Orb className="w-12" />
                     <ArrowChip href="/#pricing" label="See lifetime access" />
@@ -186,7 +186,7 @@ export default function LandingPage() {
                   </div>
                 </GlassPanel>
 
-                <GlassPanel padding="sm" className="text-on-sky-shadow grid min-h-40 content-end text-on-sky sm:w-52">
+                <GlassPanel padding="sm" className="text-on-sky-shadow grid min-h-40 content-end bg-sky-bottom/25 text-on-sky sm:w-52 lg:min-h-44 xl:w-60">
                   <ArrowChip href="/#courses" label="Browse all lessons" className="absolute top-4 right-4" />
                   <Stat
                     value={totalSampleLessons}

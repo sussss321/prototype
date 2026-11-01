@@ -37,6 +37,7 @@
   --color-sky-haze: var(--sky-haze);
   --color-sky-mid: var(--sky-mid);
   --color-sky-bottom: var(--sky-bottom);
+  --color-sky-glow: var(--sky-glow);
 
   /* Text that sits directly on the sky (white, like the reference) */
   --color-on-sky: var(--on-sky);
@@ -123,6 +124,9 @@
   --sky-haze: #d9e6eb;
   --sky-mid: #a5bbc7;
   --sky-bottom: #7894a6;
+  --sky-edge: #7391a3; /* bottom corners */
+  --sky-glow: #ddf1f8; /* bright bloom at bottom center */
+  --sky-glow-soft: rgb(213 233 244 / 0.85);
 
   --on-sky: #ffffff;
   --on-sky-muted: rgb(255 255 255 / 0.86);
@@ -196,6 +200,9 @@
   --sky-haze: #34484f;
   --sky-mid: #22323c;
   --sky-bottom: #172229;
+  --sky-edge: #141e24;
+  --sky-glow: rgb(88 128 156 / 0.55);
+  --sky-glow-soft: rgb(70 104 128 / 0.3);
 
   --on-sky: #ffffff;
   --on-sky-muted: rgb(255 255 255 / 0.78);
@@ -259,11 +266,18 @@
   backdrop-filter: blur(calc(var(--glass-blur) * 1.4)) saturate(1.4);
 }
 
-/* The hero frame: flat pale sky for the top ~40%, then down to steel blue. */
+/*
+ * The hero frame, mapped from the reference on a grid:
+ * flat pale sky for the top ~40%; below that the left/right edges darken to steel,
+ * while a wide bright cyan-white glow rises from the bottom center (behind the subject).
+ */
 @utility bg-sky {
   background:
-    radial-gradient(55% 22% at 62% 46%, var(--sky-haze), transparent 70%),
-    linear-gradient(180deg, var(--sky-top) 0%, var(--sky-top) 40%, var(--sky-mid) 68%, var(--sky-bottom) 100%);
+    radial-gradient(26% 46% at 0% 100%, var(--sky-edge), transparent 75%),
+    radial-gradient(26% 46% at 100% 100%, var(--sky-edge), transparent 75%),
+    radial-gradient(54% 64% at 50% 100%, var(--sky-glow) 0%, var(--sky-glow-soft) 48%, transparent 100%),
+    radial-gradient(40% 16% at 50% 52%, var(--sky-haze), transparent 75%),
+    linear-gradient(180deg, var(--sky-top) 0%, var(--sky-top) 38%, var(--sky-mid) 66%, var(--sky-edge) 100%);
 }
 
 /* Lower half of the hero sky only: for bands that carry white text from the top down. */
@@ -295,8 +309,8 @@
 @utility type-display {
   font-family: var(--font-heading);
   font-weight: 300;
-  font-size: clamp(2.6rem, 5.4vw, 4.5rem);
-  line-height: 1.02;
+  font-size: clamp(2.3rem, 3.3vw, 2.9rem);
+  line-height: 1.08;
   letter-spacing: -0.035em;
   text-wrap: balance;
 }
