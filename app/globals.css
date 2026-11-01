@@ -1,26 +1,380 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Design system tokens. See docs/DESIGN_SYSTEM.md before changing anything here.
+ * Colors are sampled from the reference image (design/Screenshot …PM.png):
+ *   page #AFC5DA · sky #C9DBE3 → #7894A6 · white type on sky · slate ink #2F3D40
+ *   royal-blue action #3171F6 → #3E8BD8 · white pills · pale-blue badges #C4DBF3/#54738D
+ * Every color is a token; components never use raw hex values.
+ */
+
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* Type */
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cormorant), "Iowan Old Style", "Times New Roman", serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Brand scale (royal blue). Use for accents, charts, tints. */
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+  --color-brand-950: var(--brand-950);
+
+  /* Sky (slate-steel) scale: the frame gradient and its neutrals */
+  --color-sky-top: var(--sky-top);
+  --color-sky-haze: var(--sky-haze);
+  --color-sky-mid: var(--sky-mid);
+  --color-sky-bottom: var(--sky-bottom);
+
+  /* Text that sits directly on the sky (white, like the reference) */
+  --color-on-sky: var(--on-sky);
+  --color-on-sky-muted: var(--on-sky-muted);
+
+  /* Pale-blue badge ("Perfect Security" chip in the reference) */
+  --color-tag: var(--tag);
+  --color-tag-foreground: var(--tag-foreground);
+
+  /* Glass surfaces */
+  --color-glass: var(--glass);
+  --color-glass-strong: var(--glass-strong);
+  --color-glass-border: var(--glass-border);
+  --color-wordmark: var(--wordmark);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+
+  --shadow-glass: var(--glass-shadow);
+  --shadow-brand: var(--brand-shadow);
+  --shadow-float: var(--float-shadow);
+
+  /* shadcn semantic colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Radius: soft and generous. Panels use 2xl–4xl, controls are pills. */
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.25);
+  --radius-2xl: calc(var(--radius) * 1.5);
+  --radius-3xl: calc(var(--radius) * 2);
+  --radius-4xl: calc(var(--radius) * 2.5);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ---------- Light: the reference palette ---------- */
+:root {
+  --radius: 1rem;
+
+  /* Royal blue, built around the button (#3171F6 → #3E8BD8) */
+  --brand-50: #eef4fe;
+  --brand-100: #dde8fd;
+  --brand-200: #c4d8fa;
+  --brand-300: #a1c0f8;
+  --brand-400: #6e9ef7;
+  --brand-500: #4a85f6;
+  --brand-600: #3171f6;
+  --brand-700: #2559c8;
+  --brand-800: #1f479b;
+  --brand-900: #1c3770;
+  --brand-950: #142546;
+
+  /* Sky frame (sampled top → bottom) */
+  --sky-top: #c9dbe3;
+  --sky-haze: #d9e6eb;
+  --sky-mid: #a5bbc7;
+  --sky-bottom: #7894a6;
+
+  --on-sky: #ffffff;
+  --on-sky-muted: rgb(255 255 255 / 0.86);
+
+  --tag: #c4dbf3;
+  --tag-foreground: #54738d;
+
+  --background: #afc5da; /* page around the frame */
+  --foreground: #2f3d40; /* slate ink */
+  --card: rgb(255 255 255 / 0.22);
+  --card-foreground: var(--foreground);
+  --popover: #f6fafc;
+  --popover-foreground: var(--foreground);
+  --primary: #3171f6;
+  --primary-foreground: #ffffff;
+  --secondary: #ffffff; /* white pill */
+  --secondary-foreground: #48595b;
+  --muted: #c3d4e0;
+  --muted-foreground: #43535a;
+  --accent: #d9e6eb;
+  --accent-foreground: var(--foreground);
+  --destructive: #c8433a;
+  --success: #2f8a5b;
+  --warning: #b7791f;
+  --border: #9db4c2;
+  --input: #9db4c2;
+  --ring: #3171f6;
+
+  --chart-1: #3171f6;
+  --chart-2: #3e8bd8;
+  --chart-3: #7894a6;
+  --chart-4: #a1c0f8;
+  --chart-5: #54738d;
+
+  --sidebar: #c9dbe3;
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+
+  /* Glass: clear white with a bright hairline edge */
+  --glass: rgb(255 255 255 / 0.2);
+  --glass-strong: rgb(255 255 255 / 0.94);
+  --glass-strong-tint: #e4f0f7;
+  --glass-border: rgb(255 255 255 / 0.55);
+  --glass-blur: 16px;
+  --glass-shadow:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.45),
+    0 18px 40px -26px rgb(47 61 64 / 0.45);
+  --float-shadow:
+    inset 0 1px 0 0 rgb(255 255 255 / 1),
+    0 26px 50px -26px rgb(47 61 64 / 0.5);
+
+  /* Action gradient sampled from the "Our Solutions" button (left → right) */
+  --brand-gradient: linear-gradient(90deg, #2f6cf3 0%, #3a80e2 60%, #3e8bd8 100%);
+  --brand-shadow: 0 12px 26px -12px rgb(49 113 246 / 0.65);
+
+  /* Giant background wordmark: white at ~38% over the sky (#DDE9ED) */
+  --wordmark: rgb(255 255 255 / 0.38);
+
+  /* Small white type on sky gets a whisper of shadow for legibility */
+  --on-sky-shadow: 0 1px 2px rgb(47 61 64 / 0.22);
 }
 
-body {
-  background: var(--background);
+/* ---------- Dark: same hues at night ---------- */
+.dark {
+  --sky-top: #2b3c46;
+  --sky-haze: #34484f;
+  --sky-mid: #22323c;
+  --sky-bottom: #172229;
+
+  --on-sky: #ffffff;
+  --on-sky-muted: rgb(255 255 255 / 0.78);
+
+  --tag: #22394f;
+  --tag-foreground: #a9c6e2;
+
+  --background: #121b21;
+  --foreground: #e6eff2;
+  --card: rgb(255 255 255 / 0.06);
+  --popover: #1c2a32;
+  --popover-foreground: var(--foreground);
+  --primary: #4a85f6;
+  --secondary: #ffffff;
+  --secondary-foreground: #2f3d40;
+  --muted: #22323c;
+  --muted-foreground: #a3b4bb;
+  --accent: #2b3c46;
+  --destructive: #e8675e;
+  --success: #5fc690;
+  --warning: #e6a84d;
+  --border: rgb(255 255 255 / 0.12);
+  --input: rgb(255 255 255 / 0.16);
+  --ring: #6e9ef7;
+
+  --sidebar: #172229;
+  --sidebar-border: var(--border);
+
+  --glass: rgb(255 255 255 / 0.06);
+  --glass-strong: rgb(40 56 66 / 0.92);
+  --glass-strong-tint: #22323c;
+  --glass-border: rgb(255 255 255 / 0.14);
+  --glass-shadow:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.07),
+    0 24px 48px -24px rgb(0 0 0 / 0.6);
+  --float-shadow:
+    inset 0 1px 0 0 rgb(255 255 255 / 0.12),
+    0 30px 60px -24px rgb(0 0 0 / 0.7);
+
+  --brand-shadow: 0 12px 28px -12px rgb(74 133 246 / 0.7);
+  --wordmark: rgb(255 255 255 / 0.07);
+  --on-sky-shadow: none;
+}
+
+/* ---------- Surfaces ---------- */
+@utility glass {
+  background-color: var(--glass);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.3);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.3);
+}
+
+@utility glass-strong {
+  background-color: var(--glass-strong);
+  background-image: linear-gradient(165deg, transparent 35%, var(--glass-strong-tint) 100%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--float-shadow);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 1.4)) saturate(1.4);
+  backdrop-filter: blur(calc(var(--glass-blur) * 1.4)) saturate(1.4);
+}
+
+/* The hero frame: flat pale sky for the top ~40%, then down to steel blue. */
+@utility bg-sky {
+  background:
+    radial-gradient(55% 22% at 62% 46%, var(--sky-haze), transparent 70%),
+    linear-gradient(180deg, var(--sky-top) 0%, var(--sky-top) 40%, var(--sky-mid) 68%, var(--sky-bottom) 100%);
+}
+
+/* Lower half of the hero sky only: for bands that carry white text from the top down. */
+@utility bg-sky-deep {
+  background:
+    radial-gradient(60% 40% at 50% 0%, rgb(255 255 255 / 0.18), transparent 70%),
+    linear-gradient(180deg, var(--sky-mid) 0%, var(--sky-bottom) 100%);
+}
+
+@utility bg-brand-gradient {
+  background-image: var(--brand-gradient);
+}
+
+@utility text-on-sky-shadow {
+  text-shadow: var(--on-sky-shadow);
+}
+
+/* ---------- Type styles (use these instead of ad-hoc sizes) ---------- */
+@utility type-wordmark {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(4.5rem, 19vw, 17rem);
+  line-height: 0.85;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--wordmark);
+}
+
+@utility type-display {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(2.6rem, 5.4vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+@utility type-title {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  font-size: clamp(2rem, 3.8vw, 3.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+@utility type-subtitle {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+@utility type-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@utility type-stat {
+  font-family: var(--font-heading);
+  font-weight: 200;
+  font-size: clamp(3rem, 5.5vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility type-serif-accent {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  ::selection {
+    background: rgb(49 113 246 / 0.3);
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }
